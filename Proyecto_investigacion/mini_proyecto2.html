@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+          <!--Link para usar Bootstrap -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.0.5/mqtt.js"></script>
+     <!--Link para hacer uso del protocolo MQTT -->
+
+     <link rel="icon" type="text/css" href="unca.png"> <!--icono de la pagina -->
+
+    <link rel="stylesheet" type="text/css" href="sobrelapag.css"><!--estilos propios para elementos -->
+
+
+     <style>
+
+         /*Las dos siguientes clases son para acomodar las imagenes*/
+        .contenedor-imagenes {
+            display: flex; /* Usa flexbox para alinear imágenes en fila */
+            justify-content: center; /* Centra las imágenes horizontalmente */
+            gap: 2cm; /* Espacio horizontal entre imágenes */
+            margin: 1cm auto; /*le da 1cm de espacio arriba y abajo y un auto al horizontal*/
+        }
+
+        .imagen-centrada {
+            width: 320px; 
+            height: 320px; 
+        }
+      /*clase para realizar el justificado del texto, dando margenes deseados a los costa*/
+        .texto{
+        text-align: justify;
+        margin-right: 1cm;
+        margin-left: 0.5cm;
+        font-size:larger /*Propiedad para ajustar el tamaño de la fuente o de la letra. hay varios tamaños*/
+      
+        }
+
+        /* Alineación de los elementos relacionados con los grados */
+        .grados-section {
+            display: inline-block;
+            margin-right: 20px;
+            vertical-align: top;
+        }
+
+        /* Alineación de los cuadros para iniciar las experiencias*/
+      .centrado-section {
+            margin-top: 20px; /* Espacio entre las dos secciones */
+            text-align: center; /* Centrar el título */
+            
+        }
+
+        .boton-seleccionado {
+        background-color: green;
+        color: white;
+    }
+
+    .boton-no-seleccionado {
+        background-color: red;
+        color: white;
+    }
+
+
+    </style>
+
+
+    <title>
+        Laboratorios de Fisica 
+    </title>
+    <meta charset="utf-8">
+
+</head>
+<body>
+
+   <body onload="InicioPagina();">
+
+        <!--creamos la barra del menu en la pagina web -->
+        <div class="dropdown" data-bs-theme="dark"> <!--Con estos atributos, la barra de nav se pone negra -->
+            <nav class="navbar navbar-expand-lg bg-primary"  >
+             <div class="container-fluid">
+               <a class="navbar-brand" href="https://moodle-tecno.unca.edu.ar/" target="_BLANK">Aula virtual</a>
+               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"       aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                 <span class="navbar-toggler-icon"></span>
+                  </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                       <a class="nav-link active" aria-current="page" href="sobrelapag.html" target="_BLANK">Sobre la pagina</a>
+                       <a class="nav-link" href="#">Lab de Quimica</a>   <!--Aqui pongo el link de las paginas donde estaran alojados los proyectos -->
+    
+                        <a class="nav-link" href="#">Lab de Fisica</a>
+                        <a class="nav-link" href="#" >Lab de Electronica</a>
+                    </div>
+                </div>
+            </div>
+        
+            </nav>
+        </div>
+
+        <!--Funcion para que luego de un cierto tiempo el usuario salga de la pagina y le permita a otros estudiantes ingresar-->
+        <script>
+          /*setTimeout(function(){
+            var FinLaboratorio="Z"                      //Enviamos esta variable para reiniciar el laboratorio
+            client.publish("SoloEnvio/v1",FinLaboratorio);
+            window.location.href="sobrelapag.html";
+         },50000);*/
+        </script>
+       <!-- Inciacion del proyecto 1 -->
+        <h1 style="text-align: center; margin: 1cm;"> Laboratorio de Disco de Newton</h1>
+       <br> 
+
+       <div class="texto">
+         <p>
+
+            El experimento del disco de Newton demuestra cómo la luz blanca se compone de todos los colores del 
+            espectro visible. Para realizarlo, se pinta un disco con los colores del arcoíris (rojo, naranja, 
+            amarillo, verde, azul, añil y violeta) en secciones iguales, como los gajos de una naranja. Al girar 
+            rápidamente el disco, los colores se mezclan ópticamente, y el ojo percibe una tonalidad cercana al blanco 
+            o gris claro. Esto ocurre porque cada color se combina con los demás al girar, recreando el efecto de la 
+            luz blanca, tal como sucede cuando la luz pasa a través de un prisma que separa sus componentes. 
+            Este experimento fue una de las demostraciones de Newton para probar que la luz blanca contiene en 
+            realidad todos los colores del espectro
+            
+         </p>
+       </div>
+       
+         <br>
+
+       
+       <div class="contenedor-imagenes">
+         <img src="Disco de Newton.PNG"  class="imagen-centrada">
+         <img src="Disco de Newton2.PNG" class="imagen-centrada">
+     </div>
+
+       
+       <p style="margin-left: 0.3cm;">Presione en <i>"Iniciar experiencia"</i> para comenzar con el experiemnto</p>
+
+     
+     <div class="centrado-section"> 
+        <button id="botonP1" onclick="InicioP1()">Iniciar Experiencia  </button>
+        <br>
+        <br>
+     </div>
+
+     
+
+     <!-- Inciacion del proyecto 2 -->
+     <h1 style="text-align: center; margin: 1cm;"> Laboratorio de Lentes Convergentes</h1>
+     <br> 
+
+     <div class="texto">
+      <p> 
+         Una lente es un cuerpo transparente limitado por una o dos superficies curvas que es capaz de 
+         desviar los rayos de luz (refractar). Cuando una lente es más gruesa por el centro que por los extremos
+         recibe el nombre de lente convergente. Se llama así porque los rayos que llegan paralelos al eje óptico, 
+         después de atravesar la lente,  convergen en un punto llamado foco imagen
+        </p>
+     </div>
+     
+     <div class="contenedor-imagenes">
+      <img src="Lentes convergentes.jpeg" class="imagen-centrada"> 
+      <img src="Lentes convergentes2.jpeg" class="imagen-centrada">
+     </div>
+     
+     <p style="margin-left: 0.3cm;" >Presione en <i>"Iniciar experiencia"</i> para comenzar con el experiemnto</p>
+
+     
+     <div class="centrado-section"> 
+        <button id="botonP2" onclick="InicioP2()">Iniciar Experiencia  </button>
+        <br>
+        <br>
+     </div>
+
+     
+
+     <!-- Inciacion del proyecto 3 -->
+     <h1 style="text-align: center; margin: 1cm;"> Laboratorio de Lentes Divergentes</h1>
+     <br> 
+
+     <div class="texto">
+      <p>
+        
+         Los lentes divergentes son aquellos lentes que hacen que los rayos de luz que pasan a través de ellos se dispersen
+         o "divergan". Esto significa que los rayos parecen provenir de un punto común detrás del lente, en vez de juntarse en un punto.
+         La distancia focal de una lente divergente es una cantidad negativa, y las lentes de este tipo se conocen
+         también como lentes negativas. Los puntos focales de una lente negativa están invertidos en relación 
+         con los de una lente positiva. El segundo punto focal, F2, de una lente negativa es el punto a 
+         partir del cual los rayos que orignalmente son paralelos al eje parecen divergir después de refractarse.
+        
+      </p>
+     </div>
+     
+     <div class="contenedor-imagenes"> 
+      <img src="Lentes divergentes 2.PNG" class="imagen-centrada">
+      <img src="Lentes divergentes 1.PNG" class="imagen-centrada" >
+     </div>
+
+     
+     <p style="margin-left: 0.3cm;" >Presione en <i>"Iniciar experiencia"</i> para comenzar con el experiemnto</p>
+
+     <!-- Inciacion del proyecto 3 -->
+     <div class="centrado-section"> 
+        <button id="botonP3" onclick="InicioP3()">Iniciar Experiencia  </button>
+        <br>
+        <br>
+     </div>
+
+     
+     
+
+     <H1 style="text-align: center; margin: 1cm;"> Experimento del disco de Hartl</H1>
+
+     <div class="texto">
+      <p>
+         El experimento del disco de Hartl es fundamental en el estudio de la óptica y la refracción de la luz.
+         Hartl desarrolló este experimento en el siglo XIX, un período clave para la óptica moderna, con el fin 
+         de entender mejor cómo se comporta la luz al pasar por diferentes medios.<br> 
+         En su experimento, se hace incidir un haz de luz sobre un disco de material óptico. Al pasar la luz a 
+         través del disco y la lente, se observa cómo se refracta, o se desvía, debido a las diferencias en los 
+         índices de refracción de los materiales. Así, se puede estudiar cómo la luz se comporta en diferentes 
+         medios, observando el ángulo de desviación y las propiedades de la refracción.<br>
+         Este experimento fue significativo porque permitió a los científicos de la época confirmar las leyes de 
+         la refracción de Snell y avanzar en el diseño de lentes ópticas, que son esenciales para instrumentos 
+         como microscopios y telescopios. En su época, estos avances facilitaron enormes progresos en campos como 
+         la astronomía y la biología, permitiendo observaciones más precisas y detalladas del mundo microscópico 
+         y del universo.
+
+        </p>
+     </div>
+     <br> 
+     
+     <div class="contenedor-imagenes">
+
+      <img src="Disco de Harlt.jpeg" class="imagen-centrada" >
+      <img src="Disco de Harlt2.jpeg" class="imagen-centrada" >
+
+     </div>
+     
+     <p style="margin-left: 0.3cm;">pulse el boton "Iniciar Experiencia" paara comenzar con el experimento</p>
+
+     
+     <div class="centrado-section"> 
+        <button id="botonP4" onclick="InicioP4()">Iniciar Experiencia  </button>
+        <br>
+        <br>
+     </div>
+
+      <div class="texto">
+         <p>A continuacion ingrese la cantidad de grados a a rotar el pirsma. Recuerde que la referencia es 
+            siempre con respecto al cero orginal, osea de que si ingresa 10 grados, seran 10 grados con respecto 
+            a como estaba el prisma al principio de la experiencia, y si luego ingresa 20 grados seran 20 con 
+            respecto a este "cero". Los angulos no se suman
+         </p>
+
+      </div>
+        
+        <!-- Formulario para ingresar los grados a rotar -->
+        <!--Aqui hay unos codigos especiales para el programador. Si envia por la entrada de los grados un 771 se prende el Led1, si envia un 770 -->
+        <!--se apaga. Lo mismo con el 881 y 880 para el Led 2 y 991 y 990 para el led 3 -->
+
+         <div class="grados-section">
+        <label for="gardosInput" style="margin-left: 0.3cm;">Ingrese la cantidad de grados a rotar:</label>
+        <input type="text" id="gradosInput">
+        <button onclick=" mostrarGrados()"> Enviar</button>
+        <br>
+        <br>
+       </div>
+
+     <h1 id="video">Transmisión</h1>
+     
+     <!--Funcion para mostra el video en vivo de Youtube -->
+     <iframe width="853" height="480" src="https://www.youtube.com/embed/aFM6jCyuVjU" title="Laboratorio Remoto" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+     <div class="centrado-section"> 
+      <button onclick="Recalibrar()">Recalibrar </button>
+      <br>
+      <br>
+   </div>
+
+        <script>
+             var client = mqtt.connect("wss://test.mosquitto.org:8081/mqtts");
+
+             function EventoConectar() {
+            console.log("Conctando a mqtt");
+            client.subscribe("SoloRecepcion/v1");
+         }
+
+         //Esta funcion envia un inicio hacia el laboratorio para que inicie los motores y los calibre a la posicion 0
+
+         function Recalibrar(){
+            
+            console.log("Se envio el mensaje de recalibracion"+' R');
+            client.publish("SoloEnvio/v1",'R');
+         }
+         function InicioPagina(){
+           var Inicio="E";
+            client.publish("SoloEnvio/v1",Inicio);
+            console.log("Se envio el mensaje de inicio de la pagina y el proyecto:",Inicio)
+         }
+
+         // Función para cambiar el color del botón seleccionado y el resto a rojo
+    function cambiarColorBotones(botonId) {
+        // Obtén todos los botones de "Iniciar Experiencia"
+        const botones = document.querySelectorAll('.centrado-section button');
+
+        // Itera sobre cada botón y cambia el color según el botón seleccionado
+        botones.forEach(boton => {
+            if (boton.id === botonId) {
+                boton.classList.add('boton-seleccionado');
+                boton.classList.remove('boton-no-seleccionado');
+            } else {
+                boton.classList.add('boton-no-seleccionado');
+                boton.classList.remove('boton-seleccionado');
+            }
+        });
+    }
+
+    // Modifica las funciones de inicio de cada proyecto para llamar a cambiarColorBotones
+    function InicioP1() {
+        cambiarColorBotones('botonP1');
+        var inicio = "A";
+        client.publish("SoloEnvio/v1", inicio);
+        console.log("el mensaje se envio: " + inicio);
+        const section = document.getElementById("video");
+        section.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function InicioP2() {
+        cambiarColorBotones('botonP2');
+        var inicio = "B";
+        client.publish("SoloEnvio/v1", inicio);
+        console.log("el mensaje se envio: " + inicio);
+        const section = document.getElementById("video");
+        section.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function InicioP3() {
+        cambiarColorBotones('botonP3');
+        var inicio = "C";
+        client.publish("SoloEnvio/v1", inicio);
+        console.log("el mensaje se envio: " + inicio);
+        const section = document.getElementById("video");
+        section.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function InicioP4() {
+        cambiarColorBotones('botonP4');
+        var inicio = "D";
+        client.publish("SoloEnvio/v1", inicio);
+        console.log("el mensaje se envio: " + inicio);
+        const section = document.getElementById("video");
+        section.scrollIntoView({ behavior: "smooth" });
+    }
+         // Función para mostrar el estado del led
+         function mostrarGrados() {
+            var grados = document.getElementById("gradosInput").value;
+            if(grados=="L7771"){
+               alert('Uste a prendido secretamente el Led 1');
+            }
+            if(grados=="L7770"){
+               alert('Usted a apagado secretamente el Led 1');
+            }
+            if(grados=="L8881"){
+               alert('Uste a prendido secretamente el Led 2');
+            }
+            if(grados=="L8880"){
+               alert('Usted a apagado secretamente el Led 2');
+            }
+            if(grados=="L9991"){
+               alert('Uste a prendido secretamente el Led 3');
+            }
+            if(grados=="L9990"){
+               alert('Usted a apagado secretamente el Led 3');
+            }
+
+            
+            client.publish("SoloEnvio/v1", grados);
+            console.log("el mensaje se envio: " + grados);
+
+            }
+
+            
+            window.onbeforeunload = function() {
+    var Apagado = "Z";
+    client.publish("SoloEnvio/v1", Apagado);
+    console.log("Se envió el mensaje de apagado: " + Apagado);
+};
+
+        </script>
+
+ <!--Link de Bootstrap para incluir acciones de JavaScript -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+  
+</body>
+</html>

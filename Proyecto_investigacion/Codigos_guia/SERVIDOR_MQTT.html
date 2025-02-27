@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark"> <!--ESTA ULTIMA PARTE ES PARA PONER TODA LA PAG EN MOD OSCURO lang="en" data-bs-theme="dark"-->
+<head>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	
+	<style>
+        /* Estilo para el cuadro de visualización */
+        .box {
+            width: 200px;
+            height: 30px;
+            border: 1px solid #ccc;
+            padding: 5px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        /* Alineación de los elementos relacionados con la temperatura */
+        .temperature-section {
+            display: inline-block;
+            margin-right: 20px;
+            vertical-align: top;
+        }
+    </style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.0.5/mqtt.js"></script>
+	<!--<script src="servicio.js"></script>-->
+	<title>PRUEBA 1  DE CREAR EL SERVIDOR</title>
+</head>
+<body>
+  
+	<div class="dropdown" data-bs-theme="dark"> <!--Con estos atributos, la barra de nav se pone negra -->
+		<nav class="navbar navbar-expand-lg bg-body-tertiary">
+         <div class="container-fluid">
+           <a class="navbar-brand" href="https://moodle-tecno.unca.edu.ar/" target="_BLANK">Aula virtual</a>
+           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"       aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+             <span class="navbar-toggler-icon"></span>
+              </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                   <a class="nav-link active" aria-current="page" href="#">Sobre la pagina</a>
+                   <a class="nav-link" href="#">Lab de Quimica</a>   <!--Aqui pongo el link de las paginas donde estaran alojados los proyectos -->
+
+                    <a class="nav-link" href="#">Lab de Fisica</a>
+                    <a class="nav-link" href="#" >Lab de Electronica</a>
+                </div>
+            </div>
+        </div>
+    
+        </nav>
+	</div>
+
+		
+	<div class="container my-3"> <!--el my-3 significa que nos despegamos 3unidades de la barra de nav;px-3 para hor-->
+		<h1>LABORATORIO REMOTO UNCA</h1>
+		<br>
+		<div class="row">
+		<div class="col-md-4" >
+			<h1>MEDICION TEMPERATURA</h1>
+			<table class="table">
+				<thead> <!--Esto es la cabezera, lo que aparecera en negrita como columna -->
+					<tr>
+						<th>dato1</th> <!-- las palabras que tendremos en las columnas-->
+						
+						
+					 </tr>
+				</thead>
+				<tbody> <!-- La informacion dentro de las filas-->
+					<tr> <!-- Aqui creo la fila 1-->
+						<td id="tempVal"></td> <!-- Info en fila 1 columna 1. ponemos el ID para que la variable identificada en Jaba se uarde con ese identificaddor, loq que nos permitira luego poder mostrarla en la tabla como ahora-->
+						
+						
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>  
+		<div class="col-md-4" style="background: blue">
+			<h1>MEDICION HUMEDAD</h1>
+			<table class="table">
+				<thead> <!--Esto es la cabezera, lo que aparecera en negrita como columna -->
+					<tr>
+						<th>dato1</th> <!-- las palabras que tendremos en las columnas-->
+						
+						
+					 </tr>
+				</thead>
+				<tbody> <!-- La informacion dentro de las filas-->
+					<tr> <!-- Aqui creo la fila 1-->
+						<td id="HumBox"></td> 
+						
+						
+					</tr>
+					
+				</tbody>
+			</table>
+		</div> 
+		<div class="col-md-4" style="background: green">
+			<h1>MEDICION HORA</h1>
+			<table class="table">
+				<thead> <!--Esto es la cabezera, lo que aparecera en negrita como columna -->
+					<tr>
+						<th>dato1</th> <!-- las palabras que tendremos en las columnas-->
+							
+						
+					 </tr>
+				</thead>
+				<tbody> <!-- La informacion dentro de las filas-->
+					<tr> <!-- Aqui creo la fila 1-->
+						<td id="HoraBox"></td> 
+						
+						
+					</tr>
+					
+				</tbody>
+			</table>
+		</div> 
+		  
+		</div>
+
+		<!-- Formulario para ingresar el valor de TEMP -->
+    <div class="temperature-section">
+        <label for="tempInput">Ingrese el valor de TEMP:</label>
+        <input type="text" id="tempInput">
+        <button onclick="mostrarTemp()">Enviar TEMPERATURA</button>
+        <br>
+        <br>
+
+        <!-- Cuadro para mostrar el valor de TEMP -->
+        <div id="tempBox" class="box"></div>
+    </div>
+
+	</div>
+	<br>
+	<br>
+ 
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script >
+	var client = mqtt.connect("wss://test.mosquitto.org:8081/mqtts");
+
+function EventoConectar() {
+  console.log("Conectado a MQTT");
+  
+  // Suscribe al tópico PRUEBA/WEB
+  client.subscribe("PRUEBA/WEB");
+
+  // Suscribe al nuevo tópico PRUEBA/WEB1
+  client.subscribe("PRUEBA/WEB1", function (err) {
+    if (!err) {
+      client.publish("PRUEBA/WEBb1", "40");
+    }
+  });
+
+  // Suscribe al tópico PRUEBA/WEB2
+  client.subscribe("PRUEBA/WEB2", function (err) {
+    if (!err) {
+      client.publish("PRUEBA/WEBb2", "30");
+    }
+  });
+}
+
+function EventoMensaje(topic, message) {
+  if (topic == "PRUEBA/WEB") {
+    
+    var dato = message.toString();
+    document.getElementById("tempVal").textContent = "TEMP: " + dato;
+
+  } else if (topic == "PRUEBA/WEB1") {
+    var dato1 = message.toString();
+    document.getElementById("HumBox").textContent = "HUM: " + dato1;
+
+  } else if (topic == "PRUEBA/WEB2") {
+    var dato2 = message.toString();
+    document.getElementById("HoraBox").textContent = "Hora: " + dato2;
+  }
+}
+function mostrarTemp() {
+            var temp = document.getElementById("tempInput").value;
+            document.getElementById("tempBox").textContent = "TEMP: " + temp;
+            client.publish("PRUEBA/WEBb", temp);
+            console.log("el mensaje se envio: "+ temp);
+            
+           
+
+        }
+ client.on("message", EventoMensaje);       
+client.on("connect", EventoConectar);
+
+
+console.log("Empezando a conectar");
+</script>
+</body>
+</html>

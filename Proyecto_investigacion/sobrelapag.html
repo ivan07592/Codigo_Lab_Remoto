@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+	<title>Sobre la Pagina</title>
+	<!--link para poder utilizar bootstrap 5 -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	
+	<link rel="icon" type="text/css" href="unca.png"> <!--icono de la pagina -->
+
+	<link rel="stylesheet" type="text/css" href="sobrelapag.css"><!--estilos propios para elementos -->
+
+  <meta charset="utf-8">
+</head>
+<body>
+
+ <!--creamos la barra del menu en la pagina web -->
+ <div class="dropdown" data-bs-theme="dark"> <!--Con estos atributos, la barra de nav se pone negra -->
+  <nav class="navbar navbar-expand-lg bg-primary"  >
+   <div class="container-fluid">
+     <a class="navbar-brand" href="https://moodle-tecno.unca.edu.ar/" target="_BLANK">Aula virtual</a><!--LINK hacia el aula virtual-->
+     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+       <span class="navbar-toggler-icon"></span>
+        </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+             <a class="nav-link active" aria-current="page" href="sobrelapag.html" target="_BLANK">Sobre la pagina</a>
+             <a class="nav-link" href="#">Lab de Quimica</a>   <!--Aqui pongo el link de las paginas donde estaran alojados los proyectos -->
+
+              <a class="nav-link" href="mini_proyecto2.html" target="_blank">Lab de Fisica</a>
+              <a class="nav-link" href="#" >Lab de Electronica</a>
+          </div>
+      </div>
+  </div>
+
+  </nav>
+</div>
+
+
+<section>
+
+	<div class="container-md">
+  <h1 style="text-align: center; margin-top: 20px">Sobre la página</h1>
+<br>
+<h2>¿Qué son los laboratorios remotos?</h2>
+<br>
+<img src="https://posgrado.fceia.unr.edu.ar/images/fotos/laboratorios/laboratorios_remotos.jpg" height="300" width="400"  class="rounded mx-auto d-block">
+<p>Un laboratorio remoto es una herramienta tecnológica, compuesta por software y hardware, que permite a docentes y estudiantes realizar, a través de Internet, sus prácticas como si estuvieran en un laboratorio tradicional. Los usuarios utilizan y controlan los recursos disponibles en un laboratorio mediante el uso de sensores e instrumentación que permiten interactuar con equipos reales en vez de utilizar simulaciones y sin requerir la presencia física en el laboratorio.</p>
+<img src="esquema_laboratorios.png" class="rounded mx-auto d-block" width="600" height="500">
+<p>Estos, a diferencia de las simulaciones, nos dan acceso a equipamiento real. Los sensores nos transmiten la información recogida en cada instante de observación desde el lugar físico de experimentación hasta cada uno de los terminales conectados en cada momento. Los usuarios pueden, por tanto, familiarizarse con interfaces que se corresponden con equipos reales que manejan a distancia.</p>
+
+<p>Una ventaja destacable de los laboratorios remotos es la ruptura de los límites espacio-temporales, al no requerir la presencia física del usuario en el laboratorio. De esta manera, los laboratorios están disponibles más allá del horario escolar o las prácticas presenciales programadas, lo que permite al alumnado incrementar el número de horas de práctica, requisito imprescindible para el aprendizaje en las materias científico-tecnológicas.</p>
+<h1>¿Cómo funcionan?</h1>
+<p>El principio de funcionamiento es bastante sencillo en términos generales</p>
+<img src="mapaConceptual.PNG" class="img-fluid" style="border-radius: 10px">
+<h2 style=" margin-top: 20px">Hardware</h2>
+<p>En esta parte tendremos todo lo relacionado con la parte tangible del experimento. Utilizaremos alguna placa de desarrollo, como por ejemplo Arduino u otra, para obtener datos con los sensores que dispongamos y realizar las acciones pertinentes al experimento deseado.</p>
+<h2>Comunicación</h2>
+<p>Utilizando una placa ESP8266, que estará conectada a la Arduino, tomaremos los datos y serán enviados a través de Wi-Fi, ya que esta posee un módulo integrado que lo permite. Llevaremos estos datos al broker público de Mosquitto que es compatible con el protocolo MQTT, donde se almacenarán los datos. Una vez aquí nos valdremos del Programa Node-Red que nos permitirá recuperar dichos datos para luego procesarlos y ser reenviados a donde sea que los necesitemos.</p>
+<h2>Página Web</h2>
+<p>Aquí estará la parte interactiva con el alumno, donde podrá controlar el experimento de forma remota. Este posee un servicio de MQTT, con lo que podremos recibir y enviar datos desde la misma página para luego llegar nuevamente a Node-Red y ser procesados para su posterior reenvío a la ESP8266 que le pasará a la placa de desarrollo seleccionada para ejecutar los comandos necesarios.</p>
+<div class="contenedorTit">
+	<h2 class="tituloCentrado">¿Qué podrás encontrar aquí?</h2>
+</div>
+<br>
+<p>En esta página estarán alojados todos los experimentos de la Universidad, pudiendo interactuar con cualquiera de ellos en cualquier momento que se desee. Esto le permite al alumno liberarse de las limitaciones de tiempo y movilidad, ya que podrá realizar sus prácticas desde cualquier lugar y hora que desee. A su vez en cada experimento podrás encontrar un video en tiempo real que te acompañará para que veas el experimento en funcionamiento con el fin de una experiencia mucho más interactiva.</p>
+
+
+</div>
+</section>
+	
+
+
+<!--Link de Bootstrap para incluir acciones de JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</body>
+</html>
